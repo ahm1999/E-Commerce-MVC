@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<Product>
+
+<div>
+
+    Products
+
+    @foreach (var product in Model)
+    {
+        <a href="/product/Id/@product.Id"><div>
+            
+            <td>@product.Name</td>
+            <br >
+            <td>@product.Price.ToString("c")</td>
+            </div>
+        </a>
+    }
+
+</div>
