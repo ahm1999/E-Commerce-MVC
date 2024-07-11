@@ -4,6 +4,7 @@ using E_Commerce_MVC.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce_MVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240710195721_Updating OrderItems")]
+    partial class UpdatingOrderItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.CartItem", b =>
@@ -60,7 +63,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.Category", b =>
@@ -85,7 +88,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.Order", b =>
@@ -112,7 +115,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.OrderData", b =>
@@ -134,7 +137,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OrderDatas", (string)null);
+                    b.ToTable("OrderDatas");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.OrderItem", b =>
@@ -158,7 +161,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.Product", b =>
@@ -181,7 +184,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.User", b =>
@@ -209,7 +212,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.CartItem", b =>

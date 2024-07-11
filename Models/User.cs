@@ -17,5 +17,8 @@ namespace E_Commerce_MVC.Models
         [ForeignKey("Cart")]
         public Guid CartId  { get; set; }
         public Cart  Cart{ get; set; }
+
+        public ICollection<Order> Orders { get; set; }
+
     }
 }

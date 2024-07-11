@@ -62,16 +62,24 @@ namespace E_Commerce_MVC.Controllers
             }
 
 
-            var cart = await _context.Carts.FirstOrDefaultAsync(u => u.UserId == _userManeger.GetUserId());
-
+            var cart = await _context.Carts.Include(c =>c.cartItems)
+                                      .FirstOrDefaultAsync(u => u.UserId == _userManeger.GetUserId());
+            CartItem item;
             Guid cartId = cart.Id;
+            if (cart.cartItems.Any(ci => ci.ProductId == ProductId)) {
+                item =  cart.cartItems.FirstOrDefault(ci => ci.ProductId == ProductId);
+                item.Quantity++;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
 
             CartItem cartItem = new CartItem()
             {
                 Id = Guid.NewGuid(),
                 ProductId = ProductId,
-                CartId = cartId
-
+                CartId = cartId,
+                Quantity = 1
+                
             };
             await _context.CartItems.AddAsync(cartItem);
             await _context.SaveChangesAsync();

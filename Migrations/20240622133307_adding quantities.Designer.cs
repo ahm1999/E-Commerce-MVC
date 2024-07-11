@@ -4,6 +4,7 @@ using E_Commerce_MVC.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce_MVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240622133307_adding quantities")]
+    partial class addingquantities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.CartItem", b =>
@@ -60,7 +63,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.Category", b =>
@@ -85,80 +88,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Categories", (string)null);
-                });
-
-            modelBuilder.Entity("E_Commerce_MVC.Models.Order", b =>
-                {
-                    b.Property<Guid>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Opproved")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("OrderDataId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("OrderDataId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders", (string)null);
-                });
-
-            modelBuilder.Entity("E_Commerce_MVC.Models.OrderData", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Adress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("phoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("OrderDatas", (string)null);
-                });
-
-            modelBuilder.Entity("E_Commerce_MVC.Models.OrderItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.Product", b =>
@@ -181,7 +111,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.User", b =>
@@ -209,7 +139,7 @@ namespace E_Commerce_MVC.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("E_Commerce_MVC.Models.CartItem", b =>
@@ -236,49 +166,6 @@ namespace E_Commerce_MVC.Migrations
                         .HasForeignKey("ProductId");
                 });
 
-            modelBuilder.Entity("E_Commerce_MVC.Models.Order", b =>
-                {
-                    b.HasOne("E_Commerce_MVC.Models.OrderData", "orderData")
-                        .WithMany()
-                        .HasForeignKey("OrderDataId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("E_Commerce_MVC.Models.User", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("orderData");
-                });
-
-            modelBuilder.Entity("E_Commerce_MVC.Models.OrderData", b =>
-                {
-                    b.HasOne("E_Commerce_MVC.Models.User", null)
-                        .WithMany("OrderDatas")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("E_Commerce_MVC.Models.OrderItem", b =>
-                {
-                    b.HasOne("E_Commerce_MVC.Models.Order", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("E_Commerce_MVC.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("E_Commerce_MVC.Models.User", b =>
                 {
                     b.HasOne("E_Commerce_MVC.Models.Cart", "Cart")
@@ -295,21 +182,9 @@ namespace E_Commerce_MVC.Migrations
                     b.Navigation("cartItems");
                 });
 
-            modelBuilder.Entity("E_Commerce_MVC.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
-                });
-
             modelBuilder.Entity("E_Commerce_MVC.Models.Product", b =>
                 {
                     b.Navigation("categories");
-                });
-
-            modelBuilder.Entity("E_Commerce_MVC.Models.User", b =>
-                {
-                    b.Navigation("OrderDatas");
-
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,6 +11,7 @@ namespace E_Commerce_MVC.Models
         public Guid ProductId {get; set; }
 
         public Guid CartId { get; set; }
+        public int Quantity { get; set; } = 1;
         public Product Product { get; set; }   
 
     }

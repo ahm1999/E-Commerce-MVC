@@ -1,0 +1,22 @@
+﻿@model E_Commerce_MVC.DTO.ToViewOrderDataDTO
+<div class="OrderDataContainer">
+    @foreach (var orderData in Model.ListOfOrderData)
+    
+    {
+        <p>@orderData.phoneNumber</p>
+        <p>@orderData.Adress</p>
+        <button onclick=submitOrder("@orderData.Id")>Procced with this address</button>
+    }
+</div>
+
+<form action="AddOrderData" method="post">
+     <label asp-for="Adress" ></label>
+    <input asp-for="Adress" />
+    <label  asp-for="PhoneNumber"></label>
+    <input type="number" asp-for="PhoneNumber" /> 
+    <button type="submit" >submit</button>
+
+</form>
+
+
+<script src="/js/proccedwithOrder.js" ></script>
